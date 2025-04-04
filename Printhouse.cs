@@ -1,10 +1,13 @@
 namespace Internship;
 
-public class Printhouse
+public class Printhouse : ICloneable
 {
     private string name;
     private int activePrinters;
-
+    // To Do
+    // Add PrintJobs, maybe print documents or posters, whatever
+    private List<PrintJob> printJobs;
+    
     public string Name 
     { 
         get { return name; } 
@@ -26,5 +29,15 @@ public class Printhouse
     public double CalculateTotalCost(double discount)
     {
         return CalculateTotalCost() * (1 - discount);
+    }
+
+    public object Clone()
+    {
+        var printhouse = new Printhouse(Name, ActivePrinters);
+        foreach (var job in printJobs)
+        {
+            printhouse.AddPrintJob(job);
+        }
+        return printhouse;
     }
 }

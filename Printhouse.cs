@@ -1,29 +1,26 @@
+using System.Collections;
 using Internship.PrintJobs;
 
 namespace Internship;
 
-public class Printhouse : ICloneable
+public class Printhouse(string name, int activePrinters) : IEnumerable<PrintJob>, ICloneable
 {
-    private string name;
-    private int activePrinters;
-    private List<PrintJob> printJobs;
-    
-    public string Name 
-    { 
-        get { return name; } 
-        private set { name = value; } 
-    }
+    private readonly List<PrintJob> _printJobs = [];
 
-    public int ActivePrinters 
-    { 
-        get { return activePrinters; } 
-        set { activePrinters = value > 0 ? value : 1; } 
-    }
+    public string Name { get; } = name;
 
-    public Printhouse(string name, int activePrinters)
+    public int ActivePrinters { get; } = activePrinters > 0 ? activePrinters : 1;
+
+    public int PrintJobCount => _printJobs.Count;
+
+    public void AddPrintJob(PrintJob job)
     {
-        this.name = name;
-        this.activePrinters = activePrinters > 0 ? activePrinters : 1;
+        _printJobs.Add(job);
+    }
+
+    public double CalculateTotalCost()
+    {
+        return _printJobs.Sum(job => job.CalculateCost());
     }
 
     public double CalculateTotalCost(double discount)
@@ -31,10 +28,20 @@ public class Printhouse : ICloneable
         return CalculateTotalCost() * (1 - discount);
     }
 
+    public IEnumerator<PrintJob> GetEnumerator()
+    {
+        return _printJobs.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
     public object Clone()
     {
         var printhouse = new Printhouse(Name, ActivePrinters);
-        foreach (var job in printJobs)
+        foreach (var job in _printJobs)
         {
             printhouse.AddPrintJob(job);
         }

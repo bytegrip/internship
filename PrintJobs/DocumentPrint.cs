@@ -2,16 +2,11 @@ using Internship.PrintMaterials;
 
 namespace Internship.PrintJobs;
 
-public class DocumentPrint : PrintJob
+public class DocumentPrint(string name, int pages, PrintMaterial material) : PrintJob(name, pages, material)
 {
-    public DocumentPrint(string name, int pages, PrintMaterial material) 
-        : base(name, pages, material)
-    {
-    }
-
     public override double CalculateCost()
     {
-        double baseCost = base.CalculateCost();
+        var baseCost = base.CalculateCost();
         return Pages > 100 ? baseCost * 0.9 : baseCost;
     }
 }

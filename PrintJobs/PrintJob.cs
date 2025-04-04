@@ -1,12 +1,11 @@
+using Internship.PrintMaterials;
+
 namespace Internship.PrintJobs;
 
 public abstract class PrintJob
 {
     private string name;
     private int pages;
-    // To Do
-    // Add materials
-    // Ideas: Paper? Papyrus? Canvas? Photopaper?
     private PrintMaterial material;
 
     public string Name 

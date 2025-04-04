@@ -1,3 +1,5 @@
+using Internship.PrintMaterials;
+
 namespace Internship.PrintJobs;
 
 public class DocumentPrint : PrintJob

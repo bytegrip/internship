@@ -1,11 +1,11 @@
+using Internship.PrintJobs;
+
 namespace Internship;
 
 public class Printhouse : ICloneable
 {
     private string name;
     private int activePrinters;
-    // To Do
-    // Add PrintJobs, maybe print documents or posters, whatever
     private List<PrintJob> printJobs;
     
     public string Name 

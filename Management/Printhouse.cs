@@ -1,7 +1,7 @@
 using System.Collections;
 using Internship.PrintJobs;
 
-namespace Internship;
+namespace Internship.Management;
 
 public class Printhouse(string name, int activePrinters) : IEnumerable<PrintJob>, ICloneable
 {

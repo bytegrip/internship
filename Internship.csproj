@@ -8,4 +8,9 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="PrintJobs\" />
+      <Folder Include="PrintMaterials\" />
+    </ItemGroup>
+
 </Project>

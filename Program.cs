@@ -27,8 +27,9 @@ foreach (var job in printhouse)
     Console.WriteLine($"  Cost: ${job.CalculateCost():F2}");
     Console.WriteLine();
 }
-            
+         
 Console.WriteLine($"Total cost: ${printhouse.CalculateTotalCost():F2}");
+Console.WriteLine($"10% Discounted cost: ${printhouse.CalculateTotalCost(0.1):F2}");
             
 var clonedPrinthouse = (Printhouse)printhouse.Clone();
 Console.WriteLine($"Cloned printhouse: {clonedPrinthouse.Name}");

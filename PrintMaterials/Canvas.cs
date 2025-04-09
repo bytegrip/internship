@@ -2,19 +2,19 @@ using Internship.PrintJobs;
 
 namespace Internship.PrintMaterials;
 
-public class Canvas(MaterialTypes type, PaperSize size, double pricePerUnit, bool stretchedFrame = false)
+public class Canvas(MaterialTypes type, PaperSize size, decimal pricePerUnit, bool stretchedFrame = false)
     : PrintMaterial(type, size, pricePerUnit)
 {
-    public bool StretchedFrame { get; } = stretchedFrame;
+    private bool StretchedFrame { get; } = stretchedFrame;
 
-    public override double CalculateCost(int quantity)
+    public override decimal CalculateCost(int quantity)
     {
-        double baseCost = PricePerUnit * quantity * 1.5;
-        return StretchedFrame ? baseCost * 1.3 : baseCost;
+        var baseCost = PricePerUnit * quantity * 1.5m;
+        return StretchedFrame ? baseCost * 1.3m : baseCost;
     }
     
-    public override double GetShippingCost(int quantity = 1, double baseRate = 5)
+    public override decimal GetShippingCost(int quantity = 1, decimal baseRate = 5)
     {
-        return baseRate * 1.5 + (quantity * 0.2);
+        return baseRate * 1.5m + (quantity * 0.2m);
     }
 }

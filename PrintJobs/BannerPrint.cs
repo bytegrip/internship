@@ -2,47 +2,43 @@ using Internship.PrintMaterials;
 
 namespace Internship.PrintJobs;
 
-public class BannerPrint : PrintJob
+public class BannerPrint(
+    string name,
+    PrintMaterial material,
+    decimal width,
+    decimal height,
+    bool grommets = false,
+    bool isUrgent = false)
+    : PrintJob(name, 1, material, isUrgent)
 {
-    public double Width { get; }
-    public double Height { get; }
-    public bool Grommets { get; }
+    public decimal Width { get; } = width > 0m ? width : 1m;
+    public decimal Height { get; } = height > 0m ? height : 1m;
+    public bool Grommets { get; } = grommets;
 
-    public BannerPrint(string name, PrintMaterial material, double width, double height, 
-        bool grommets = false, bool isUrgent = false)
-        : base(name, 1, material, isUrgent)
+    public override decimal CalculateCost(decimal baseMarkup = 1.0m, bool includeShipping = false)
     {
-        Width = width > 0 ? width : 1;
-        Height = height > 0 ? height : 1;
-        Grommets = grommets;
-    }
-
-    public override double CalculateCost(double baseMarkup = 1.0, bool includeShipping = false)
-    {
-        double area = Width * Height;
-        double materialCost = Material.CalculateCost(1) * area * 10;
+        var area = Width * Height;
+        var materialCost = Material.CalculateCost(1) * (decimal)area * 10m;
         
         if (Grommets)
         {
-            materialCost += 2.5 * (Width + Height) / 0.5;
+            materialCost += 2.5m * (Width + Height) / 0.5m;
         }
         
-        double urgentFee = IsUrgent ? materialCost * 0.25 : 0;
-        double totalCost = (materialCost + urgentFee) * baseMarkup;
-        
-        if (includeShipping)
+        var urgentFee = IsUrgent ? materialCost * 0.25m : 0m;
+        var totalCost = (materialCost + urgentFee) * baseMarkup;
+
+        if (!includeShipping) return totalCost;
+        var vinyl = Material as Vinyl;
+        if (vinyl != null)
         {
-            var vinyl = Material as Vinyl;
-            if (vinyl != null)
-            {
-                totalCost += vinyl.GetShippingCost(1) * area * 1.5;
-            }
-            else
-            {
-                totalCost += Material.GetShippingCost(1) * area * 2;
-            }
+            totalCost += vinyl.GetShippingCost(1) * area * 1.5m;
         }
-        
+        else
+        {
+            totalCost += Material.GetShippingCost(1) * area * 2;
+        }
+
         return totalCost;
     }
 }

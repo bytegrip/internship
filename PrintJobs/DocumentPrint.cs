@@ -2,36 +2,35 @@ using Internship.PrintMaterials;
 
 namespace Internship.PrintJobs;
 
-public class DocumentPrint : PrintJob
+public class DocumentPrint(
+    string name,
+    int pages,
+    PrintMaterial material,
+    bool isUrgent = false,
+    bool doubleSpaced = false,
+    bool colored = false)
+    : PrintJob(name, pages, material, isUrgent)
 {
-    public bool DoubleSpaced { get; }
-    public bool Colored { get; }
+    public bool DoubleSpaced { get; } = doubleSpaced;
+    public bool Colored { get; } = colored;
 
-    public DocumentPrint(string name, int pages, PrintMaterial material, bool isUrgent = false, 
-        bool doubleSpaced = false, bool colored = false) 
-        : base(name, pages, material, isUrgent)
+    public override decimal CalculateCost(decimal baseMarkup = 1.0m, bool includeShipping = false)
     {
-        DoubleSpaced = doubleSpaced;
-        Colored = colored;
-    }
-
-    public override double CalculateCost(double baseMarkup = 1.0, bool includeShipping = false)
-    {
-        double baseCost = base.CalculateCost(baseMarkup, includeShipping);
+        var baseCost = base.CalculateCost(baseMarkup, includeShipping);
         
         if (Pages > 100)
         {
-            baseCost *= 0.9;
+            baseCost *= 0.9m;
         }
         
         if (DoubleSpaced)
         {
-            baseCost *= 1.1;
+            baseCost *= 1.1m;
         }
         
         if (Colored)
         {
-            baseCost *= 1.25;
+            baseCost *= 1.25m;
         }
         
         return baseCost;

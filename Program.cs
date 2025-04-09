@@ -4,18 +4,18 @@ using Internship.PrintMaterials;
 
 var printhouse = new Printhouse("Printhouse Incorporated", 3)
 {
-    DefaultMarkup = 1.3,
+    DefaultMarkup = 1.3m,
     AcceptsUrgentJobs = true
 };
 
-var standardPaper = new Paper(MaterialTypes.Standard, PaperSize.A4, 0.1);
-var premiumPaper = new Paper(MaterialTypes.Premium, PaperSize.A2, 0.2, doubleSided: true);
-var glossyCanvas = new Canvas(MaterialTypes.Glossy, PaperSize.A4, 2.5, stretchedFrame: true);
-var matteVinyl = new Vinyl(MaterialTypes.Matte, PaperSize.Letter, 3.0);
+var standardPaper = new Paper(MaterialTypes.Standard, PaperSize.A4, 0.1m);
+var premiumPaper = new Paper(MaterialTypes.Premium, PaperSize.A2, 0.2m, doubleSided: true);
+var glossyCanvas = new Canvas(MaterialTypes.Glossy, PaperSize.A4, 2.5m, stretchedFrame: true);
+var matteVinyl = new Vinyl(MaterialTypes.Matte, PaperSize.Letter, 3.0m);
 
 var document = new DocumentPrint("Annual Report", 35, premiumPaper, doubleSpaced: true, colored: true);
 var poster = new PosterPrint("Marketing Campaign", 1, glossyCanvas, laminated: true, highResolution: true);
-var banner = new BannerPrint("Grand Opening", matteVinyl, width: 2.0, height: 1.0, grommets: true);
+var banner = new BannerPrint("Grand Opening", matteVinyl, width: 2.0m, height: 1.0m, grommets: true);
 var urgentFlyers = new DocumentPrint("Event Flyers", 100, standardPaper, isUrgent: true);
 
 printhouse.AddPrintJob(document);
@@ -23,8 +23,8 @@ printhouse.AddPrintJob(poster);
 printhouse.AddPrintJob(banner);
 printhouse.AddPrintJob(urgentFlyers);
 
-printhouse.AddCustomerDiscount("Regular Client", 0.1);
-printhouse.AddCustomerDiscount("VIP Client", 0.2);
+printhouse.AddCustomerDiscount("Regular Client", 0.1m);
+printhouse.AddCustomerDiscount("VIP Client", 0.2m);
 
 Console.WriteLine($"Printhouse: {printhouse.Name}");
 Console.WriteLine($"Active printers: {printhouse.ActivePrinters}");
@@ -58,7 +58,7 @@ foreach (var job in printhouse)
     var urgentJob = job as PrintJob;
     if (urgentJob != null && urgentJob.IsUrgent)
     {
-        Console.WriteLine($"  URGENT JOB");
+        Console.WriteLine("  URGENT JOB");
     }
     
     Console.WriteLine($"  Base Cost: ${job.CalculateCost():F2}");
@@ -68,7 +68,7 @@ foreach (var job in printhouse)
 
 Console.WriteLine($"Total cost: ${printhouse.CalculateTotalCost():F2}");
 Console.WriteLine($"Total cost with shipping: ${printhouse.CalculateTotalCost(includeShipping: true):F2}");
-Console.WriteLine($"10% Discounted cost: ${printhouse.CalculateTotalCost(discount: 0.1):F2}");
+Console.WriteLine($"10% Discounted cost: ${printhouse.CalculateTotalCost(discount: 0.1m):F2}");
 Console.WriteLine($"Regular Client cost: ${printhouse.CalculateTotalCost(printhouse.GetCustomerDiscount("Regular Client")):F2}");
 Console.WriteLine($"VIP Client cost: ${printhouse.CalculateTotalCost(printhouse.GetCustomerDiscount("VIP Client")):F2}");
 Console.WriteLine();

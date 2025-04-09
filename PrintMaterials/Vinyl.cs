@@ -2,14 +2,14 @@ using Internship.PrintJobs;
 
 namespace Internship.PrintMaterials;
 
-public class Vinyl(MaterialTypes type, PaperSize size, double pricePerUnit, bool waterproof = true)
+public class Vinyl(MaterialTypes type, PaperSize size, decimal pricePerUnit, bool waterproof = true)
     : PrintMaterial(type, size, pricePerUnit)
 {
-    public bool Waterproof { get; } = waterproof;
+    private bool Waterproof { get; } = waterproof;
 
-    public override double CalculateCost(int quantity)
+    public override decimal CalculateCost(int quantity)
     {
-        double baseCost = PricePerUnit * quantity * 2.0;
-        return Waterproof ? baseCost * 1.2 : baseCost;
+        var baseCost = PricePerUnit * quantity * 2.0m;
+        return Waterproof ? baseCost * 1.2m : baseCost;
     }
 }

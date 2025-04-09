@@ -2,19 +2,14 @@ using Internship.PrintJobs;
 
 namespace Internship.PrintMaterials;
 
-public class Paper : PrintMaterial
+public class Paper(MaterialTypes type, PaperSize size, decimal pricePerUnit, bool doubleSided = false)
+    : PrintMaterial(type, size, pricePerUnit)
 {
-    public bool DoubleSided { get; }
+    private bool DoubleSided { get; } = doubleSided;
 
-    public Paper(MaterialTypes type, PaperSize size, double pricePerUnit, bool doubleSided = false)
-        : base(type, size, pricePerUnit)
+    public override decimal CalculateCost(int quantity)
     {
-        DoubleSided = doubleSided;
-    }
-
-    public override double CalculateCost(int quantity)
-    {
-        double baseCost = PricePerUnit * quantity;
-        return DoubleSided ? baseCost * 1.5 : baseCost;
+        var baseCost = PricePerUnit * quantity;
+        return DoubleSided ? baseCost * 1.5m : baseCost;
     }
 }

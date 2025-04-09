@@ -11,11 +11,11 @@ public abstract class PrintJob(string name, int pages, PrintMaterial material, b
     public DateTime CreatedAt { get; } = DateTime.Now;
     public DateTime? CompletedAt { get; private set; }
 
-    public virtual double CalculateCost(double baseMarkup = 1.0, bool includeShipping = false)
+    public virtual decimal CalculateCost(decimal baseMarkup = 1.0m, bool includeShipping = false)
     {
-        double materialCost = Material.CalculateCost(Pages);
-        double urgentFee = IsUrgent ? materialCost * 0.25 : 0;
-        double totalCost = (materialCost + urgentFee) * baseMarkup;
+        var materialCost = Material.CalculateCost(Pages);
+        var urgentFee = IsUrgent ? materialCost * 0.25m : 0m;
+        var totalCost = (materialCost + urgentFee) * baseMarkup;
         
         if (includeShipping)
         {
@@ -24,18 +24,7 @@ public abstract class PrintJob(string name, int pages, PrintMaterial material, b
         
         return totalCost;
     }
-    
-    public bool ChangeMaterial(PrintMaterial newMaterial)
-    {
-        if (CompletedAt != null)
-        {
-            return false;
-        }
-        
-        Material = newMaterial;
-        return true;
-    }
-    
+
     public void MarkAsCompleted()
     {
         CompletedAt = DateTime.Now;

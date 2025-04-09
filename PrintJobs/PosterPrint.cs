@@ -14,27 +14,27 @@ public class PosterPrint(
     public bool Laminated { get; } = laminated;
     public bool HighResolution { get; } = highResolution;
 
-    public override double CalculateCost(double baseMarkup = 1.0, bool includeShipping = false)
+    public override decimal CalculateCost(decimal baseMarkup = 1.0m, bool includeShipping = false)
     {
-        double baseCost = base.CalculateCost(baseMarkup, includeShipping);
+        var baseCost = base.CalculateCost(baseMarkup, includeShipping);
         
         if (Laminated)
         {
-            baseCost *= 1.25;
+            baseCost *= 1.25m;
         }
         
         if (HighResolution)
         {
-            baseCost *= 1.4;
+            baseCost *= 1.4m;
         }
         
         if (Material is Canvas)
         {
-            baseCost *= 1.15;
+            baseCost *= 1.15m;
         }
         else if (Material is Vinyl)
         {
-            baseCost *= 1.1;
+            baseCost *= 1.1m;
         }
         
         return baseCost;

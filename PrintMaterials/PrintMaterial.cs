@@ -2,16 +2,16 @@ using Internship.PrintJobs;
 
 namespace Internship.PrintMaterials;
 
-public abstract class PrintMaterial(MaterialTypes type, PaperSize size, double pricePerUnit)
+public abstract class PrintMaterial(MaterialTypes type, PaperSize size, decimal pricePerUnit)
 {
     public MaterialTypes Type { get; } = type;
     public PaperSize Size { get; } = size;
-    protected double PricePerUnit { get; } = pricePerUnit;
+    protected decimal PricePerUnit { get; } = pricePerUnit;
 
-    public abstract double CalculateCost(int quantity);
+    public abstract decimal CalculateCost(int quantity);
     
-    public virtual double GetShippingCost(int quantity = 1, double baseRate = 5.0)
+    public virtual decimal GetShippingCost(int quantity = 1, decimal baseRate = 5.0m)
     {
-        return baseRate + (quantity * 0.1);
+        return baseRate + (quantity * 0.1m);
     }
 }

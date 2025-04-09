@@ -39,20 +39,26 @@ foreach (var job in printhouse)
     Console.WriteLine($"  Pages: {job.Pages}");
     Console.WriteLine($"  Material: {job.Material.Type} {job.Material.Size}");
     
-    if (job is DocumentPrint docPrint)
+    if (job is DocumentPrint)
     {
-        Console.WriteLine($"  Double Spaced: {docPrint.DoubleSpaced}");
-        Console.WriteLine($"  Colored: {docPrint.Colored}");
+        var docPrint = job as DocumentPrint;
+        Console.WriteLine($"  Double Spaced: {docPrint is { DoubleSpaced: true }}");
+        Console.WriteLine($"  Colored: {docPrint is { Colored: true }}");
     }
-    else if (job is PosterPrint posterPrint)
+    else if (job is PosterPrint)
     {
-        Console.WriteLine($"  Laminated: {posterPrint.Laminated}");
-        Console.WriteLine($"  High Resolution: {posterPrint.HighResolution}");
+        var posterPrint = job as PosterPrint;
+        Console.WriteLine($"  Laminated: {posterPrint is { Laminated: true }}");
+        Console.WriteLine($"  High Resolution: {posterPrint is { HighResolution: true }}");
     }
-    else if (job is BannerPrint bannerPrint)
+    else if (job is BannerPrint)
     {
-        Console.WriteLine($"  Dimensions: {bannerPrint.Width}m x {bannerPrint.Height}m");
-        Console.WriteLine($"  Grommets: {bannerPrint.Grommets}");
+        var bannerPrint = job as BannerPrint;
+        if (bannerPrint != null)
+        {
+            Console.WriteLine($"  Dimensions: {bannerPrint.Width}m x {bannerPrint.Height}m");
+            Console.WriteLine($"  Grommets: {bannerPrint.Grommets}");
+        }
     }
     
     var urgentJob = job as PrintJob;

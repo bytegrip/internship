@@ -1,10 +1,12 @@
+using Internship.PrintJobs;
+
 namespace Internship.PrintMaterials;
 
-public abstract class PrintMaterial(string type, string size, double pricePerUnit)
+public abstract class PrintMaterial(string type, PaperSize size, double pricePerUnit)
 {
     public string Type { get; } = type;
 
-    public string Size { get; } = size;
+    public PaperSize Size { get; } = size;
 
     protected double PricePerUnit { get; } = pricePerUnit;
 

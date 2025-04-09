@@ -5,8 +5,8 @@ using Internship.PrintMaterials;
 
 var printhouse = new Printhouse("Printhouse Incorporated", 3);
             
-var paper = new Paper("Glossy", "A4", 0.2);
-var canvas = new Canvas("Premium", "A2", 2.5);
+var paper = new Paper("Glossy", PaperSize.A2, 0.2);
+var canvas = new Canvas("Premium", PaperSize.A4, 2.5);
             
 var document = new DocumentPrint("Annual Report", 35, paper);
 var poster = new PosterPrint("Marketing Campaign", 1, canvas, true);

@@ -1,6 +1,8 @@
+using Internship.PrintJobs;
+
 namespace Internship.PrintMaterials;
 
-public class Canvas(string type, string size, double pricePerUnit) : PrintMaterial(type, size, pricePerUnit)
+public class Canvas(string type, PaperSize size, double pricePerUnit) : PrintMaterial(type, size, pricePerUnit)
 {
     public override double CalculateCost(int quantity)
     {
